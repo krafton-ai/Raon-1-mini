@@ -24,8 +24,8 @@ Raon-1 mini is a 30B-A4B Mixture-of-Experts (MoE) language model, designed and *
 
 ## Highlights
 
-- **Reasoning**: Built-in thinking with six [reasoning effort](#reasoning-effort) levels (`none`, `low`, `medium`, `high`, `xhigh` and `max`), selectable per request. (Benchmark results: pending)
-- **Instruction following and search**: (Benchmark results: pending)
+- **Reasoning**: Built-in thinking with six [reasoning effort](#reasoning-effort) levels (`none`, `low`, `medium`, `high`, `xhigh` and `max`), selectable per request. Scores 96.7 on AIME 2026, 87.1 on HMMT Feb 2026 and 86.0 on GPQA Diamond.
+- **Multi-turn conversation and search**: Leads the compared MoE models on MultiChallenge (64.9) and BrowseComp Plus (55.9), the multi-turn conversation and search benchmarks shown below.
 - **Multilingual capabilities**: Trained on Korean, English, Japanese, Chinese, Spanish, French, and Thai. Demonstrates strong Korean performance and solid English capabilities.
 - **Agent execution**: Tool calling for agentic workflows, with support for Hermes Agent, Pi and OpenCode.
 - **Speculative decoding support**: A DFlash2 draft model is provided for accelerated speculative decoding.
@@ -67,7 +67,249 @@ Raon-1 mini uses a hybrid Mixture-of-Experts (MoE) architecture, consisting of 1
 
 ## Evaluation Results
 
-Evaluation results for the final release: (pending)
+<div style="overflow-x:auto;">
+<table style="font-family:'Pretendard','Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',system-ui,sans-serif;border-collapse:collapse;width:100%;min-width:1180px;table-layout:auto;font-size:14px;max-width:1400px;margin:0 auto">
+  <colgroup>
+    <col style="width:120px">
+    <col style="width:180px">
+    <col span="8" style="width:110px">
+  </colgroup>
+  <thead>
+  <tr>
+    <th rowspan="2" style="background:#000;color:#fff;text-align:left;padding:12px 14px;font-weight:700;vertical-align:middle">Category</th>
+    <th rowspan="2" style="background:#000;color:#fff;text-align:left;padding:12px 14px;font-weight:700;vertical-align:middle">Benchmark</th>
+    <th colspan="6" style="background:#000;color:#fff;padding:10px 12px;font-weight:700;text-align:center">MoE</th>
+    <th colspan="2" style="background:#000;color:#fff;padding:10px 12px;font-weight:700;text-align:center;border-left:2px solid #9a9a9a">Dense</th>
+  </tr>
+  <tr>
+    <th style="padding:10px 6px;font-weight:600;font-size:13px;color:#fff;text-align:center;line-height:1.35;background:#e0362f">Raon-1 mini<br/>(30B-A4B)</th>
+    <th style="padding:10px 6px;font-weight:600;font-size:13px;color:#fff;text-align:center;line-height:1.35;background:#e0362f">Raon-1 mini preview</th>
+    <th style="padding:10px 6px;font-weight:600;font-size:13px;color:#fff;text-align:center;line-height:1.35;background:#2a2a2a">Qwen3.6-35B-A3B</th>
+    <th style="padding:10px 6px;font-weight:600;font-size:13px;color:#fff;text-align:center;line-height:1.35;background:#2a2a2a">Gemma 4 26B-A4B</th>
+    <th style="padding:10px 6px;font-weight:600;font-size:13px;color:#fff;text-align:center;line-height:1.35;background:#2a2a2a">Flint<br/>(40B-A2.5B)</th>
+    <th style="padding:10px 6px;font-weight:600;font-size:13px;color:#fff;text-align:center;line-height:1.35;background:#2a2a2a">Inkling 2 Mini<br/>(26.4B-A5.4B)</th>
+    <th style="padding:10px 6px;font-weight:600;font-size:13px;color:#fff;text-align:center;line-height:1.35;background:#2a2a2a;border-left:2px solid #9a9a9a">Qwen3.8-27B</th>
+    <th style="padding:10px 6px;font-weight:600;font-size:13px;color:#fff;text-align:center;line-height:1.35;background:#2a2a2a">Muse Glimmer 30B</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td rowspan="2" style="font-weight:700;text-align:left;vertical-align:middle;white-space:normal;border-bottom:1px solid #e6e6e6;background:#fff;color:#1a1a1a">Knowledge</td>
+    <td style="padding:12px 10px;border-bottom:1px solid #e6e6e6;color:#1a1a1a;font-weight:500;text-align:left;white-space:normal;background:#fff">MMLU Pro</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#fef0ef">82.7</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#fef0ef">76.5</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#fff">85.9</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#fff">82.9</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#fff">77.7</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#fff">83.5</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;border-left:2px solid #9a9a9a;background:#fff">85.7</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#fff">84.0</td>
+  </tr>
+  <tr>
+    <td style="padding:12px 10px;border-bottom:1px solid #e6e6e6;color:#1a1a1a;font-weight:500;text-align:left;white-space:normal;background:#f7f7f7">AA-Omniscience</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#fde4e2">1.0</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#e32e5e;font-size:15px;background:#fde4e2">3.5</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#f7f7f7">−7.2</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#f7f7f7">−46.6</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#f7f7f7">−45.0</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#f7f7f7">−0.3</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#f7f7f7;border-left:2px solid #9a9a9a">−0.5</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#f7f7f7">−34.7</td>
+  </tr>
+  <tr>
+    <td rowspan="3" style="font-weight:700;text-align:left;vertical-align:middle;white-space:normal;border-bottom:1px solid #e6e6e6;background:#fff;color:#1a1a1a">Reasoning</td>
+    <td style="padding:12px 10px;border-bottom:1px solid #e6e6e6;color:#1a1a1a;font-weight:500;text-align:left;white-space:normal;background:#fff">GPQA Diamond</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#fef0ef">86.0</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#fef0ef">84.3</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#fff">83.2</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#fff">80.7</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#fff">70.8</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#fff">86.6</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;border-left:2px solid #9a9a9a;background:#fff">89.7</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#fff">82.6</td>
+  </tr>
+  <tr>
+    <td style="padding:12px 10px;border-bottom:1px solid #e6e6e6;color:#1a1a1a;font-weight:500;text-align:left;white-space:normal;background:#f7f7f7">AIME 2026</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#fde4e2">96.7</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#fde4e2">93.3</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#f7f7f7">92.9</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#f7f7f7">87.1</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#f7f7f7">89.6</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#f7f7f7">97.5</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#f7f7f7;border-left:2px solid #9a9a9a">98.8</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#f7f7f7">92.9</td>
+  </tr>
+  <tr>
+    <td style="padding:12px 10px;border-bottom:1px solid #e6e6e6;color:#1a1a1a;font-weight:500;text-align:left;white-space:normal;background:#fff">HMMT Feb 2026</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#fef0ef">87.1</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#fef0ef">84.1</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#fff">84.5</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#fff">79.9</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#fff">76.9</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#fff">88.6</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;border-left:2px solid #9a9a9a;background:#fff">95.8</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#fff">74.6</td>
+  </tr>
+  <tr>
+    <td rowspan="2" style="font-weight:700;text-align:left;vertical-align:middle;white-space:normal;border-bottom:1px solid #e6e6e6;background:#fff;color:#1a1a1a">Instruction and multi-turn</td>
+    <td style="padding:12px 10px;border-bottom:1px solid #e6e6e6;color:#1a1a1a;font-weight:500;text-align:left;white-space:normal;background:#f7f7f7">IFBench</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#fde4e2">84.9</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#fde4e2">84.2</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#f7f7f7">66.6</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#f7f7f7">80.9</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#f7f7f7">88.4</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#f7f7f7">77.0</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#f7f7f7;border-left:2px solid #9a9a9a">82.4</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#f7f7f7">78.7</td>
+  </tr>
+  <tr>
+    <td style="padding:12px 10px;border-bottom:1px solid #e6e6e6;color:#1a1a1a;font-weight:500;text-align:left;white-space:normal;background:#fff">MultiChallenge</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#e32e5e;font-size:15px;background:#fef0ef">64.9</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#fef0ef">59.0</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#fff">58.2</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#fff">58.4</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#fff">54.8</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#fff">52.4</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;border-left:2px solid #9a9a9a;background:#fff">63.6</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#fff">63.4</td>
+  </tr>
+  <tr>
+    <td rowspan="4" style="font-weight:700;text-align:left;vertical-align:middle;white-space:normal;border-bottom:1px solid #e6e6e6;background:#fff;color:#1a1a1a">Coding</td>
+    <td style="padding:12px 10px;border-bottom:1px solid #e6e6e6;color:#1a1a1a;font-weight:500;text-align:left;white-space:normal;background:#f7f7f7">LiveCodeBench v6</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#fde4e2">81.7</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#fde4e2">81.6</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#f7f7f7">81.2</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#f7f7f7">83.4</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#f7f7f7">88.5</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#f7f7f7">87.4</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#f7f7f7;border-left:2px solid #9a9a9a">79.3</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#f7f7f7">77.4</td>
+  </tr>
+  <tr>
+    <td style="padding:12px 10px;border-bottom:1px solid #e6e6e6;color:#1a1a1a;font-weight:500;text-align:left;white-space:normal;background:#fff">SciCode</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#fef0ef">41.3</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#fef0ef">38.7</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#fff">35.6</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#fff">39.6</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#fff">33.7</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#fff">43.8</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;border-left:2px solid #9a9a9a;background:#fff">44.6</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#fff">43.6</td>
+  </tr>
+  <tr>
+    <td style="padding:12px 10px;border-bottom:1px solid #e6e6e6;color:#1a1a1a;font-weight:500;text-align:left;white-space:normal;background:#f7f7f7">SWE-Verified¹</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#fde4e2">71.0</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#fde4e2">70.8</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#f7f7f7">63.2</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#f7f7f7">61.6</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#f7f7f7">76.0</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#f7f7f7">74.2</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#f7f7f7;border-left:2px solid #9a9a9a">74.6</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#f7f7f7">72.0</td>
+  </tr>
+  <tr>
+    <td style="padding:12px 10px;border-bottom:1px solid #e6e6e6;color:#1a1a1a;font-weight:500;text-align:left;white-space:normal;background:#fff">Terminal-Bench Lite</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#fef0ef">52.0</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#fef0ef">47.0</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#fff">63.3</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#fff">52.0</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#fff">57.3</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#fff">77.0</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;border-left:2px solid #9a9a9a;background:#fff">67.0</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#fff">70.7</td>
+  </tr>
+  <tr>
+    <td rowspan="4" style="font-weight:700;text-align:left;vertical-align:middle;white-space:normal;border-bottom:1px solid #e6e6e6;background:#fff;color:#1a1a1a">Agentic</td>
+    <td style="padding:12px 10px;border-bottom:1px solid #e6e6e6;color:#1a1a1a;font-weight:500;text-align:left;white-space:normal;background:#f7f7f7">GDPVal²</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#e32e5e;font-size:15px;background:#fde4e2">72.3</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#fde4e2">66.0</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#f7f7f7">68.4</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#f7f7f7">58.8</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#f7f7f7">63.8</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#f7f7f7">69.9</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#f7f7f7;border-left:2px solid #9a9a9a">74.3</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#f7f7f7">68.2</td>
+  </tr>
+  <tr>
+    <td style="padding:12px 10px;border-bottom:1px solid #e6e6e6;color:#1a1a1a;font-weight:500;text-align:left;white-space:normal;background:#fff">AutomationBench³</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#fef0ef">39.9</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#fef0ef">29.7</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#fff">24.9</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#fff">36.2</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#fff">30.8</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#fff">56.7</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;border-left:2px solid #9a9a9a;background:#fff">58.7</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#fff">32.1</td>
+  </tr>
+  <tr>
+    <td style="padding:12px 10px;border-bottom:1px solid #e6e6e6;color:#1a1a1a;font-weight:500;text-align:left;white-space:normal;background:#f7f7f7">BrowseComp Plus</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#e32e5e;font-size:15px;background:#fde4e2">55.9</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#fde4e2">55.7</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#f7f7f7">34.8</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#f7f7f7">32.2</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#f7f7f7">49.2</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#f7f7f7">48.3</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#f7f7f7;border-left:2px solid #9a9a9a">58.0</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#f7f7f7">52.8</td>
+  </tr>
+  <tr>
+    <td style="padding:12px 10px;border-bottom:1px solid #e6e6e6;color:#1a1a1a;font-weight:500;text-align:left;white-space:normal;background:#fff">BFCL v4 Overall</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#fef0ef">61.6</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#fef0ef">59.8</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#fff">64.7</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#fff">65.8</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#fff">51.5</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#fff">58.7</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;border-left:2px solid #9a9a9a;background:#fff">72.4</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#fff">51.8</td>
+  </tr>
+  <tr>
+    <td rowspan="2" style="font-weight:700;text-align:left;vertical-align:middle;white-space:normal;border-bottom:1px solid #e6e6e6;background:#fff;color:#1a1a1a">Long context</td>
+    <td style="padding:12px 10px;border-bottom:1px solid #e6e6e6;color:#1a1a1a;font-weight:500;text-align:left;white-space:normal;background:#f7f7f7">AA-LCR</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#fde4e2">70.7</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#fde4e2">67.3</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#f7f7f7">69.3</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#f7f7f7">67.0</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#f7f7f7">65.7</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#f7f7f7">80.7</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#f7f7f7;border-left:2px solid #9a9a9a">80.3</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#f7f7f7">81.3</td>
+  </tr>
+  <tr>
+    <td style="padding:12px 10px;border-bottom:1px solid #e6e6e6;color:#1a1a1a;font-weight:500;text-align:left;white-space:normal;background:#fff">GDP.pdf⁴</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#fef0ef">7.7</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#fef0ef">5.8</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#fff">6.6</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#fff">3.6</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#fff">1.8</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#fff">10.6</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;border-left:2px solid #9a9a9a;background:#fff">11.2</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#fff">8.4</td>
+  </tr>
+  <tr>
+    <td style="font-weight:700;text-align:left;vertical-align:middle;white-space:normal;border-bottom:1px solid #e6e6e6;background:#fff;color:#1a1a1a">Korean conversation</td>
+    <td style="padding:12px 10px;border-bottom:1px solid #e6e6e6;color:#1a1a1a;font-weight:500;text-align:left;white-space:normal;background:#f7f7f7">Chatbot Korean (internal)⁵</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#fde4e2">92.7</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#e32e5e;font-size:15px;background:#fde4e2">92.9</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#f7f7f7">74.5</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#f7f7f7">90.6</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#f7f7f7">66.5</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#f7f7f7">81.9</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#f7f7f7;border-left:2px solid #9a9a9a">90.1</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#f7f7f7">87.0</td>
+  </tr>
+  </tbody>
+</table>
+<p style="margin:0;font-size:10px;opacity:0.7">
+Judge and user simulator: gpt-5.6-luna for all evaluations.<br/>
+Raon-1 mini was evaluated using reasoning effort and presence penalty settings appropriate for each benchmark.<br/>
+Red scores = Raon-1 mini or Raon-1 mini preview is best within the MoE group (Raon-1 mini, Raon-1 mini preview, Qwen3.6-35B-A3B, Gemma 4 26B-A4B, Flint, Inkling 2 Mini). Dense models (Qwen3.8-27B, Muse Glimmer 30B) are shown for reference only.<br/>
+¹ SWE-Verified: evaluated with the mini-SWE-agent harness.<br/>
+² GDPVal: metric is a judge score, not Elo.<br/>
+³ AutomationBench: public split, not the official evaluation set.<br/>
+⁴ GDP.pdf: official Artificial Analysis (artificialanalysis.ai) text-only version. PDFs are OCR-ed in advance; no image input.
+<br/>
+⁵ Chatbot Korean (internal): an internal benchmark measuring Korean colloquial ability in chatbot conversations across diverse situations. Not publicly released.</p>
 
 ## Sampling parameters
 
@@ -102,6 +344,10 @@ sampling = dict(temperature=1.0, top_p=0.95, top_k=20, presence_penalty=1.5, rep
 ``` -->
 
 ## Reasoning effort
+
+| `reasoning_effort` | `none` | `low` | `medium` | `high` | `xhigh` | `max` |
+|---|:-:|:-:|:-:|:-:|:-:|:-:|
+| Reasoning | Off | Shortest | Shorter | **Default** | Longer | Longest (unsteered) |
 
 Raon-1 mini has six reasoning effort levels: `none`, `low`, `medium`, `high`, `xhigh` and `max`.
 `low` thinks the least and `max` the most; `none` turns thinking off and answers directly.
@@ -143,6 +389,8 @@ the level for requests that do not set one.
 Send `"reasoning_effort": "none"` as a top-level field (`reasoning.effort` in the Responses API).
 The thinking block is then closed in the prompt (`<think></think>`), and the model answers directly,
 without steering.
+We recommend `none` for chat, instruction following and simple tool calls rather than for math,
+coding or multi-step agentic tasks such as web search.
 
 - `"reasoning_effort": "none"` inside `chat_template_kwargs` keeps thinking on unless you also set
   `"enable_thinking": false` there.
@@ -272,7 +520,7 @@ and CPU offload.
 </details>
 
 <details>
-<summary><strong>vLLM (beta)</strong></summary>
+<summary><strong>vLLM</strong></summary>
 
 Use vLLM to serve Raon-1 mini through an OpenAI-compatible API
 with tool calling and DFlash2 speculative decoding.
@@ -587,6 +835,9 @@ and `default_model` as the model name.
 `mlx_lm server` returns the reasoning in the `reasoning` field of the message and the answer in `content`.
 For coding and math, set `presence_penalty` to `0`.
 
+> [!NOTE]
+> `mlx_lm server` does not apply reasoning effort; `reasoning_effort` is ignored. To use reasoning effort, run `python raon_mlx_model.py serve` (below).
+
 **Faster generation with DFlash2 (speculative decoding).** `raon_mlx_model.py` can also run the bundled DFlash2 draft
 model (`dflash2/`). Run the commands using the folder downloaded above:
 
@@ -667,7 +918,7 @@ RAON_HEAD_MODE=on python raon_mlx_model.py generate \
 
 Add `--no-dflash` to use the same head option without DFlash2. The included
 `head_stage1_a2g64gm.safetensors` adds about 208 MB; a missing or invalid file causes a warning and fallback
-to the full head. The MLX repository does not include `head_stage1_a2g64gm.safetensors` yet, so `RAON_HEAD_MODE=on` prints the warning and uses the full head. Direct native `mlx_lm.generate` calls use the full head.
+to the full head. Direct native `mlx_lm.generate` calls use the full head.
 
 
 </details>

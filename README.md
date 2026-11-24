@@ -28,7 +28,7 @@ Raon-1 mini is a 30B-A4B Mixture-of-Experts (MoE) language model, designed and *
 - **Quantization options**: Available in MXFP8 and NVFP4 formats, with NVFP4 enabling inference on a single NVIDIA RTX 5090 gpu (32 GB VRAM).
 
 <p align="center">
-  <img src="https://huggingface.co/KRAFTON/Raon-1-mini/resolve/main/assets/raon-1-mini-highlights.webp" alt="Raon-1 mini benchmark highlights: AA-Omniscience, GPQA Diamond, IFBench, MultiChallenge, BrowseComp Plus, SWE-Verified, GDPVal and Chatbot Korean (internal), compared with Qwen3.6 35B-A3B, Gemma 4 26B-A4B, Flint (40B-A2.5B) and Inkling 2 Mini" width="100%">
+  <img src="assets/raon-1-mini-highlights.webp" alt="Raon-1 mini benchmark highlights: AA-Omniscience, GPQA Diamond, IFBench, MultiChallenge, BrowseComp Plus, SWE-Verified, GDPVal and Chatbot Korean (internal), compared with Qwen3.6 35B-A3B, Gemma 4 26B-A4B, Flint (40B-A2.5B) and Inkling 2 Mini" width="100%">
 </p>
 
 ## Model Overview

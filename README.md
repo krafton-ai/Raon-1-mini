@@ -18,10 +18,6 @@
 
 Raon-1 mini is a 30B-A4B Mixture-of-Experts (MoE) language model, designed and **trained from scratch** by [KRAFTON AI](https://krafton.ai/en/). It demonstrates **strong capabilities in Korean conversation and agentic tasks**. As part of the Raon open model family, it is released under the **Apache 2.0 license**.
 
-> [!TIP]
-> Want to try Raon-1 mini without setting anything up?<br>
-> Chat with it for free, for a limited time, in the [Raon-1 mini playground](https://raon-console.krafton.ai/playground/guest).
-
 ## Highlights
 
 - **Reasoning**: Built-in thinking with six [reasoning effort](#reasoning-effort) levels (`none`, `low`, `medium`, `high`, `xhigh` and `max`), selectable per request. Scores 96.7 on AIME 2026, 87.1 on HMMT Feb 2026 and 86.0 on GPQA Diamond.

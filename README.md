@@ -65,14 +65,15 @@ Raon-1 mini uses a hybrid Mixture-of-Experts (MoE) architecture, consisting of 1
 
 ---
 
-## Evaluation Results
+## Benchmark Results
 
-<div style="overflow-x:auto;">
-<table style="font-family:'Pretendard','Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',system-ui,sans-serif;border-collapse:collapse;width:100%;min-width:1180px;table-layout:auto;font-size:14px;max-width:1400px;margin:0 auto">
+Red indicates the best performance of Raon-1 mini preview among MoE baselines.
+
+<table style="font-family:'Pretendard','Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',system-ui,sans-serif;border-collapse:collapse;width:100%;table-layout:auto;font-size:14px;max-width:1400px;margin:0 auto">
   <colgroup>
-    <col style="width:120px">
-    <col style="width:180px">
-    <col span="8" style="width:110px">
+    <col style="width:12%">
+    <col style="width:16%">
+    <col span="8" style="width:9%">
   </colgroup>
   <thead>
   <tr>
@@ -82,14 +83,14 @@ Raon-1 mini uses a hybrid Mixture-of-Experts (MoE) architecture, consisting of 1
     <th colspan="2" style="background:#000;color:#fff;padding:10px 12px;font-weight:700;text-align:center;border-left:2px solid #9a9a9a">Dense</th>
   </tr>
   <tr>
-    <th style="padding:10px 6px;font-weight:600;font-size:13px;color:#fff;text-align:center;line-height:1.35;background:#e0362f">Raon-1 mini<br/>(30B-A4B)</th>
-    <th style="padding:10px 6px;font-weight:600;font-size:13px;color:#fff;text-align:center;line-height:1.35;background:#e0362f">Raon-1 mini preview</th>
-    <th style="padding:10px 6px;font-weight:600;font-size:13px;color:#fff;text-align:center;line-height:1.35;background:#2a2a2a">Qwen3.6-35B-A3B</th>
-    <th style="padding:10px 6px;font-weight:600;font-size:13px;color:#fff;text-align:center;line-height:1.35;background:#2a2a2a">Gemma 4 26B-A4B</th>
-    <th style="padding:10px 6px;font-weight:600;font-size:13px;color:#fff;text-align:center;line-height:1.35;background:#2a2a2a">Flint<br/>(40B-A2.5B)</th>
-    <th style="padding:10px 6px;font-weight:600;font-size:13px;color:#fff;text-align:center;line-height:1.35;background:#2a2a2a">Inkling 2 Mini<br/>(26.4B-A5.4B)</th>
-    <th style="padding:10px 6px;font-weight:600;font-size:13px;color:#fff;text-align:center;line-height:1.35;background:#2a2a2a;border-left:2px solid #9a9a9a">Qwen3.8-27B</th>
-    <th style="padding:10px 6px;font-weight:600;font-size:13px;color:#fff;text-align:center;line-height:1.35;background:#2a2a2a">Muse Glimmer 30B</th>
+    <th style="min-width:60px;box-sizing:border-box;padding:10px 6px;font-weight:600;font-size:13px;color:#fff;text-align:center;line-height:1.35;background:#e0362f">Raon-1 mini<br/>(30B-A4B)</th>
+    <th style="min-width:60px;box-sizing:border-box;padding:10px 6px;font-weight:600;font-size:13px;color:#fff;text-align:center;line-height:1.35;background:#e0362f">Raon-1 mini preview</th>
+    <th style="min-width:60px;box-sizing:border-box;padding:10px 6px;font-weight:600;font-size:13px;color:#fff;text-align:center;line-height:1.35;background:#2a2a2a">Qwen3.6-35B-A3B</th>
+    <th style="min-width:60px;box-sizing:border-box;padding:10px 6px;font-weight:600;font-size:13px;color:#fff;text-align:center;line-height:1.35;background:#2a2a2a">Gemma 4 26B-A4B</th>
+    <th style="min-width:60px;box-sizing:border-box;padding:10px 6px;font-weight:600;font-size:13px;color:#fff;text-align:center;line-height:1.35;background:#2a2a2a">Flint<br/>(40B-A2.5B)</th>
+    <th style="min-width:60px;box-sizing:border-box;padding:10px 6px;font-weight:600;font-size:13px;color:#fff;text-align:center;line-height:1.35;background:#2a2a2a">Inkling 2 Mini<br/>(26.4B-A5.4B)</th>
+    <th style="min-width:60px;box-sizing:border-box;padding:10px 6px;font-weight:600;font-size:13px;color:#fff;text-align:center;line-height:1.35;background:#2a2a2a;border-left:2px solid #9a9a9a">Qwen3.8-27B</th>
+    <th style="min-width:60px;box-sizing:border-box;padding:10px 6px;font-weight:600;font-size:13px;color:#fff;text-align:center;line-height:1.35;background:#2a2a2a">Muse Glimmer 30B</th>
   </tr>
   </thead>
   <tbody>
@@ -309,7 +310,156 @@ Red scores = Raon-1 mini or Raon-1 mini preview is best within the MoE group (Ra
 ³ AutomationBench: public split, not the official evaluation set.<br/>
 ⁴ GDP.pdf: official Artificial Analysis (artificialanalysis.ai) text-only version. PDFs are OCR-ed in advance; no image input.
 <br/>
-⁵ Chatbot Korean (internal): an internal benchmark measuring Korean colloquial ability in chatbot conversations across diverse situations. Not publicly released.</p>
+⁵ Chatbot Korean (internal): an internal benchmark measuring Korean colloquial ability in chatbot conversations across diverse situations. Not publicly released.
+</p>
+
+## 2027 Korean CSAT Results
+
+<table style="font-family:'Pretendard','Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',system-ui,sans-serif;border-collapse:collapse;width:100%;table-layout:auto;font-size:14px;max-width:1400px;margin:0 auto">
+  <colgroup>
+    <col style="width:14%">
+    <col style="width:28%">
+    <col style="width:14%">
+    <col span="4" style="width:11%">
+  </colgroup>
+  <thead>
+  <tr>
+    <th rowspan="2" scope="col" style="background:#000;color:#fff;text-align:left;padding:12px 14px;font-weight:700;vertical-align:middle">Group</th>
+    <th rowspan="2" scope="col" style="background:#000;color:#fff;text-align:left;padding:12px 14px;font-weight:700;vertical-align:middle">Model</th>
+    <th rowspan="2" scope="col" style="background:#000;color:#fff;padding:10px 12px;font-weight:700;text-align:center;vertical-align:middle">Input modality</th>
+    <th colspan="2" scope="colgroup" style="background:#000;color:#fff;padding:10px 12px;font-weight:700;text-align:center;vertical-align:middle">Full exam / 450</th>
+    <th colspan="2" scope="colgroup" style="background:#000;color:#fff;padding:10px 12px;font-weight:700;text-align:center;vertical-align:middle">Text-only subset / 352.5</th>
+  </tr>
+  <tr>
+    <th scope="col" style="padding:10px 6px;font-weight:600;font-size:13px;color:#fff;text-align:center;line-height:1.35;background:#2a2a2a">Per section</th>
+    <th scope="col" style="padding:10px 6px;font-weight:600;font-size:13px;color:#fff;text-align:center;line-height:1.35;background:#2a2a2a">Per question</th>
+    <th scope="col" style="padding:10px 6px;font-weight:600;font-size:13px;color:#fff;text-align:center;line-height:1.35;background:#2a2a2a">Per section</th>
+    <th scope="col" style="padding:10px 6px;font-weight:600;font-size:13px;color:#fff;text-align:center;line-height:1.35;background:#2a2a2a">Per question</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td rowspan="2" style="font-weight:700;text-align:left;vertical-align:middle;white-space:normal;border-bottom:1px solid #e6e6e6;background:#e0362f;color:#fff">Raon</td>
+    <td style="padding:12px 10px;border-bottom:1px solid #e6e6e6;color:#1a1a1a;font-weight:500;text-align:left;white-space:normal;background:#fef0ef">Raon-1 mini (30B-A4B)</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;background:#fef0ef">Text</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#fef0ef">371.8</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#fef0ef">401.3</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#fef0ef">324.4</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#fef0ef">336.2</td>
+  </tr>
+  <tr>
+    <td style="padding:12px 10px;border-bottom:1px solid #e6e6e6;color:#1a1a1a;font-weight:500;text-align:left;white-space:normal;background:#fde4e2">Raon-1 mini preview</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;background:#fde4e2">Text</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#fde4e2">361.4</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#fde4e2">387.9</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#fde4e2">312.2</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#fde4e2">335.6</td>
+  </tr>
+  </tbody>
+  <tbody>
+  <tr>
+    <td rowspan="5" style="font-weight:700;text-align:left;vertical-align:middle;white-space:normal;border-bottom:1px solid #e6e6e6;background:#fff;color:#1a1a1a">Korean baselines</td>
+    <td style="padding:12px 10px;border-bottom:1px solid #e6e6e6;color:#1a1a1a;font-weight:500;text-align:left;white-space:normal;background:#fff">A.X K2 (688B-A33B)</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;background:#fff">Text</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#fff">391.7</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#fff">399.7</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#fff">336.4</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#fff">342.1</td>
+  </tr>
+  <tr>
+    <td style="padding:12px 10px;border-bottom:1px solid #e6e6e6;color:#1a1a1a;font-weight:500;text-align:left;white-space:normal;background:#f7f7f7">Motif 3 (314B-A13.2B)</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;background:#f7f7f7">Text</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#f7f7f7">249.1</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#f7f7f7">326.2</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#f7f7f7">204.0</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#f7f7f7">284.4</td>
+  </tr>
+  <tr>
+    <td style="padding:12px 10px;border-bottom:1px solid #e6e6e6;color:#1a1a1a;font-weight:500;text-align:left;white-space:normal;background:#fff">K-EXAONE 2.0 (750B-A37B)</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;background:#fff">Text</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#fff">359.1</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#fff">368.0</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#fff">299.3</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#fff">320.1</td>
+  </tr>
+  <tr>
+    <td style="padding:12px 10px;border-bottom:1px solid #e6e6e6;color:#1a1a1a;font-weight:500;text-align:left;white-space:normal;background:#f7f7f7">Solar Open 2 (250B-A15B)</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;background:#f7f7f7">Text</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#f7f7f7">328.0</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#f7f7f7">400.1</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#f7f7f7">263.7</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#f7f7f7">345.2</td>
+  </tr>
+  <tr>
+    <td style="padding:12px 10px;border-bottom:1px solid #e6e6e6;color:#1a1a1a;font-weight:500;text-align:left;white-space:normal;background:#fff">Solar Mini 4.5 Preview (35B-A3B)</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;background:#fff">Text</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#fff">395.6</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#fff">394.3</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#fff">336.3</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#fff">335.4</td>
+  </tr>
+  </tbody>
+  <tbody>
+  <tr>
+    <td rowspan="4" style="font-weight:700;text-align:left;vertical-align:middle;white-space:normal;border-bottom:1px solid #e6e6e6;background:#fff;color:#1a1a1a">MoE</td>
+    <td style="padding:12px 10px;border-bottom:1px solid #e6e6e6;color:#1a1a1a;font-weight:500;text-align:left;white-space:normal;background:#f7f7f7">Qwen3.6-35B-A3B</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;background:#f7f7f7">Text + image</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#f7f7f7">376.1</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#f7f7f7">388.1</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#f7f7f7">299.1</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#f7f7f7">305.2</td>
+  </tr>
+  <tr>
+    <td style="padding:12px 10px;border-bottom:1px solid #e6e6e6;color:#1a1a1a;font-weight:500;text-align:left;white-space:normal;background:#fff">Gemma 4 26B-A4B</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;background:#fff">Text + image</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#fff">392.3</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#fff">422.3</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#fff">318.5</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#fff">335.2</td>
+  </tr>
+  <tr>
+    <td style="padding:12px 10px;border-bottom:1px solid #e6e6e6;color:#1a1a1a;font-weight:500;text-align:left;white-space:normal;background:#f7f7f7">Flint (40B-A2.5B)</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;background:#f7f7f7">Text</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#f7f7f7">270.1</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#f7f7f7">313.5</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#f7f7f7">236.0</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#f7f7f7">272.5</td>
+  </tr>
+  <tr>
+    <td style="padding:12px 10px;border-bottom:1px solid #e6e6e6;color:#1a1a1a;font-weight:500;text-align:left;white-space:normal;background:#fff">Inkling 2 Mini (26.4B-A5.4B)</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;background:#fff">Text + image</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#fff">361.8</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#fff">412.8</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#fff">334.6</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#fff">329.8</td>
+  </tr>
+  </tbody>
+  <tbody>
+  <tr>
+    <td rowspan="2" style="font-weight:700;text-align:left;vertical-align:middle;white-space:normal;border-bottom:1px solid #e6e6e6;background:#fff;color:#1a1a1a">Dense</td>
+    <td style="padding:12px 10px;border-bottom:1px solid #e6e6e6;color:#1a1a1a;font-weight:500;text-align:left;white-space:normal;background:#f7f7f7">Qwen3.8-27B</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;background:#f7f7f7">Text + image</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#f7f7f7">400.2</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#f7f7f7">421.2</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#f7f7f7">335.3</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#f7f7f7">340.4</td>
+  </tr>
+  <tr>
+    <td style="padding:12px 10px;border-bottom:1px solid #e6e6e6;color:#1a1a1a;font-weight:500;text-align:left;white-space:normal;background:#fff">Muse Glimmer 30B</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;background:#fff">Text + image</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#fff">396.7</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#fff">423.4</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#fff">252.7</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;text-align:center;color:#1a1a1a;font-size:15px;background:#fff">338.5</td>
+  </tr>
+  </tbody>
+</table><p style="margin:0;font-size:10px;opacity:0.7">
+Raon-1 mini was evaluated with high reasoning effort.<br/>
+<strong>Input.</strong> Each prompt contains either all questions in one exam section (Per section) or a single question (Per question).<br/>
+<strong>Coverage.</strong> The full exam includes 507 questions across 26 sections. Input modality shows which models received figures. The text-only subset includes the 318 questions without images.<br/>
+<strong>Scoring.</strong> This benchmark scores the full exam out of 450 points. Korean, math, and English are worth 100 points each, Korean history 50, and social studies and science a combined 100. For Korean and math, we add the average elective score to the common-section score. For social studies and science, we double the average across 17 electives.<br/>
+We followed <a href="https://github.com/hehee9/CSAT-benchmark">hehee9’s CSAT-benchmark</a> implementation as closely as possible.
+</p>
 
 ## Sampling parameters
 
@@ -566,6 +716,27 @@ later starts reuse them.
 To serve the NVFP4 checkpoint, replace the model with
 `KRAFTON/Raon-1-mini-nvfp4` in the same command.
 It runs on a single GPU (tensor parallel size 1).
+
+Send a request from another terminal:
+
+```bash
+curl http://localhost:8000/v1/chat/completions \
+    -H "Content-Type: application/json" \
+    -d '{
+      "model": "Raon-1-mini",
+      "messages": [
+        {"role": "user", "content": "Tell me about KRAFTON AI."}
+      ],
+      "max_tokens": 8192,
+      "temperature": 1.0,
+      "top_p": 0.95,
+      "top_k": 20,
+      "presence_penalty": 1.5
+    }'
+```
+
+The reasoning is returned in `message.reasoning` and the answer in `message.content`.
+To set the reasoning effort, see [Reasoning effort](#reasoning-effort).
 
 
 ### RTX 5090 (32 GB)

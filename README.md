@@ -24,7 +24,7 @@ Raon-1 mini is a 30B-A4B Mixture-of-Experts (MoE) language model, designed and *
 
 ## Highlights
 
-- **Reasoning**: Built-in thinking, with per-request [reasoning effort](#reasoning-effort) control. (Benchmark results: pending)
+- **Reasoning**: Built-in thinking with six [reasoning effort](#reasoning-effort) levels (`none`, `low`, `medium`, `high`, `xhigh` and `max`), selectable per request. (Benchmark results: pending)
 - **Instruction following and search**: (Benchmark results: pending)
 - **Multilingual capabilities**: Trained on Korean, English, Japanese, Chinese, Spanish, French, and Thai. Demonstrates strong Korean performance and solid English capabilities.
 - **Agent execution**: Tool calling for agentic workflows, with support for Hermes Agent, Pi and OpenCode.
@@ -72,7 +72,7 @@ Evaluation results for the final release: (pending)
 ## Sampling parameters
 
 > [!Important]
-> Raon-1 mini is designed for thinking mode; disabling it is not recommended.
+> Raon-1 mini is designed for thinking mode. To turn thinking off, use the `none` [reasoning effort](#reasoning-effort).
 
 Settings shared by all tasks:
 
@@ -103,27 +103,17 @@ sampling = dict(temperature=1.0, top_p=0.95, top_k=20, presence_penalty=1.5, rep
 
 ## Reasoning effort
 
-Each request can choose how much the model reasons with `reasoning_effort`.
-The prompt is unchanged: the checkpoint ships steering vectors that the server adds
-to the outputs of five MoE layers, scaled by the alpha of the requested level.
+Raon-1 mini has six reasoning effort levels: `none`, `low`, `medium`, `high`, `xhigh` and `max`.
+`low` thinks the least and `max` the most; `none` turns thinking off and answers directly.
+Requests that do not set a level use `high`.
 
-| `reasoning_effort` | alpha | Notes |
-|---|---|---|
-| `none` | 0 | Turns thinking off only as the top-level `reasoning_effort` field; elsewhere it keeps thinking on with alpha 0 |
-| `low` | 0.3 | |
-| `medium` | 0.1 | |
-| `high` | 0.05 | Default when unset |
-| `xhigh` | 0.02 | |
-| `max` | 0 | Unsteered model |
+The levels from `low` to `max` are applied with steering vectors that ship with the checkpoint, so the
+prompt stays the same. They are supported by the Raon vLLM and llama.cpp forks, the included Transformers
+code and the MLX repository's `raon_mlx_model.py`.
 
-Set the level in one of these places:
+### OpenAI-compatible server (vLLM, llama.cpp)
 
-- Chat Completions: the top-level `reasoning_effort` field, or `chat_template_kwargs.reasoning_effort`
-- Responses API: `reasoning.effort`
-
-`minimal` and any other value not in the table are rejected with HTTP 400.
-Steering is applied by the Raon vLLM fork and by the included Transformers code;
-the chat template does not use `reasoning_effort`, so other engines ignore it.
+Set `reasoning_effort` in the request:
 
 ```bash
 curl http://localhost:8000/v1/chat/completions \
@@ -131,12 +121,9 @@ curl http://localhost:8000/v1/chat/completions \
     -d '{
       "model": "Raon-1-mini",
       "messages": [
-        {
-          "role": "user",
-          "content": "Tell me about KRAFTON AI."
-        }
+        {"role": "user", "content": "Tell me about KRAFTON AI."}
       ],
-      "reasoning_effort": "low",
+      "reasoning_effort": "max",
       "max_tokens": 8192,
       "temperature": 1.0,
       "top_p": 0.95,
@@ -145,15 +132,56 @@ curl http://localhost:8000/v1/chat/completions \
     }'
 ```
 
-In Transformers, the included model code applies the default level (`high`) to every
-forward pass. Call `model.set_reasoning_effort("low")` (or another level) before
-`generate()` to select a different one.
+`chat_template_kwargs.reasoning_effort` also works, and the Responses API takes `reasoning.effort`.
+Any other value is rejected with HTTP 400.
+
+In `llama-cli`, add `--reasoning-effort low` (or another level). In `llama-server`, the same option sets
+the level for requests that do not set one.
+
+### Turning thinking off (`none`)
+
+Send `"reasoning_effort": "none"` as a top-level field (`reasoning.effort` in the Responses API).
+The thinking block is then closed in the prompt (`<think></think>`), and the model answers directly,
+without steering.
+
+- `"reasoning_effort": "none"` inside `chat_template_kwargs` keeps thinking on unless you also set
+  `"enable_thinking": false` there.
+- `"enable_thinking": false` alone turns thinking off but keeps the default level's steering (`high`).
+- In `llama-cli`, use `--reasoning off --reasoning-effort none` and set `"enable_thinking": false`
+  in `--chat-template-kwargs`.
+
+### Transformers
+
+The included model code applies one level to every `generate()` call. It starts at `high`:
+
+```python
+model.set_reasoning_effort("low")  # none, low, medium, high, xhigh or max
+outputs = model.generate(**inputs, max_new_tokens=32768)
+```
+
+For `none`, also pass `enable_thinking=False` to the chat template:
+
+```python
+model.set_reasoning_effort("none")
+inputs = tokenizer.apply_chat_template(
+    messages,
+    add_generation_prompt=True,
+    tokenize=True,
+    return_dict=True,
+    return_tensors="pt",
+    enable_thinking=False,
+).to(model.device)
+```
+
+### MLX
+
+Use the bundled `raon_mlx_model.py`: add `--reasoning-effort low` to `generate` or `serve`, or send
+`reasoning_effort` in a `raon_mlx_model.py serve` request. `mlx_lm` ignores the level. See the MLX
+section of the [Quickstart](#quickstart).
 
 ## Speculative Decoding
 
 We release a [DFlash2](https://github.com/z-lab/dflash) draft model, [KRAFTON/Raon-1-mini-dflash2](https://huggingface.co/KRAFTON/Raon-1-mini-dflash2), alongside Raon-1 mini to accelerate inference through speculative decoding. Speedups vary by hardware and workload.
-
-Speculative decoding results for the final release: (pending)
 
 ## Quickstart
 
@@ -250,7 +278,9 @@ Use vLLM to serve Raon-1 mini through an OpenAI-compatible API
 with tool calling and DFlash2 speculative decoding.
 Tested on NVIDIA B300. The RTX 5090 NVFP4 profile is documented below.
 
-Install from our fork and start the server:
+Install from our fork and start the server. The install and the first start need git,
+CUDA Toolkit 13 with `nvcc` on `PATH`, and a C/C++ compiler (`gcc`/`g++`),
+because the model's kernels are compiled on the first start:
 
 ```bash
 VLLM_REF="raon"
@@ -320,19 +350,19 @@ vllm serve KRAFTON/Raon-1-mini-nvfp4 \
 </details>
 
 <details>
-<summary><strong>llama.cpp (preview build; final release pending)</strong></summary>
+<summary><strong>llama.cpp</strong></summary>
 
 Use llama.cpp to run the GGUF checkpoint locally in a terminal
 or through an OpenAI-compatible API, with optional DFlash2
 speculative decoding.
 
-Checkpoint: [KRAFTON/Raon-1-mini-preview-gguf](https://huggingface.co/KRAFTON/Raon-1-mini-preview-gguf) (preview build; final release pending)
+Checkpoint: [KRAFTON/Raon-1-mini-gguf](https://huggingface.co/KRAFTON/Raon-1-mini-gguf)
 
-Build from our `raon-1-mini-preview` branch; upstream support is pending.
+Build from our `raon-1-mini` branch; upstream support is pending.
 On Windows, see the [build guide](https://github.com/ggml-org/llama.cpp/blob/master/docs/build.md).
 
 ```bash
-git clone -b raon-1-mini-preview \
+git clone -b raon-1-mini \
     https://github.com/krafton-ai/llama.cpp
 cd llama.cpp
 
@@ -345,7 +375,7 @@ Start a terminal chat. The model downloads automatically.
 
 ```bash
 ./build/bin/llama-cli \
-    -hf KRAFTON/Raon-1-mini-preview-gguf:Q4_K_M \
+    -hf KRAFTON/Raon-1-mini-gguf:Q4_K_M \
     --ctx-size 262144 \
     --n-predict 32768 \
     --temp 1.0 \
@@ -366,7 +396,7 @@ Or start an OpenAI-compatible server:
 
 ```bash
 ./build/bin/llama-server \
-    -hf KRAFTON/Raon-1-mini-preview-gguf:Q4_K_M \
+    -hf KRAFTON/Raon-1-mini-gguf:Q4_K_M \
     --host 127.0.0.1 \
     --port 8000 \
     --alias Raon-1-mini \
@@ -434,23 +464,29 @@ For coding and math, set `presence_penalty` to `0`.
 </details>
 
 <details>
-<summary><strong>MLX (Apple silicon; preview build; final release pending)</strong></summary>
+<summary><strong>MLX (Apple silicon)</strong></summary>
 
 Use MLX to run Raon-1 mini locally on Apple silicon,
 either directly in Python or through an OpenAI-compatible API.
 
-Checkpoint: [KRAFTON/Raon-1-mini-preview-mlx](https://huggingface.co/KRAFTON/Raon-1-mini-preview-mlx) (preview build; final release pending)
+Checkpoint: [KRAFTON/Raon-1-mini-mlx](https://huggingface.co/KRAFTON/Raon-1-mini-mlx)
 
-Install the dependencies with Python 3.11+:
+Install the dependencies with Python 3.11+ (the macOS system `python3` is older, so create the environment with uv):
 
 ```bash
-python3 -m venv .venv
+uv venv --python 3.12 --seed
 source .venv/bin/activate
 
 python -m pip install \
     "mlx==0.32.4" \
     "mlx-lm==0.32.2" \
     "transformers==5.20.1"
+```
+
+Download the model once. All MLX examples below use this one download.
+
+```bash
+hf download KRAFTON/Raon-1-mini-mlx --local-dir Raon-1-mini-mlx
 ```
 
 Run in Python:
@@ -463,7 +499,7 @@ from mlx_lm.sample_utils import (
 )
 
 model, tokenizer = load(
-    "KRAFTON/Raon-1-mini-preview-mlx",
+    "Raon-1-mini-mlx",
     trust_remote_code=True,
 )
 
@@ -498,11 +534,14 @@ response = generate(
 print(response)
 ```
 
+Loading the model prints a `[transformers] You are using a model of type raon1_mini to instantiate a model of type ...`
+warning. It is expected and can be ignored.
+
 Or start an OpenAI-compatible server:
 
 ```bash
 python -m mlx_lm server \
-    --model KRAFTON/Raon-1-mini-preview-mlx \
+    --model Raon-1-mini-mlx \
     --trust-remote-code \
     --host 127.0.0.1 \
     --port 8000 \
@@ -545,7 +584,91 @@ curl http://localhost:8000/v1/chat/completions \
 
 Use `http://localhost:8000/v1` as the base URL
 and `default_model` as the model name.
+`mlx_lm server` returns the reasoning in the `reasoning` field of the message and the answer in `content`.
 For coding and math, set `presence_penalty` to `0`.
+
+**Faster generation with DFlash2 (speculative decoding).** `raon_mlx_model.py` can also run the bundled DFlash2 draft
+model (`dflash2/`). Run the commands using the folder downloaded above:
+
+```bash
+cd Raon-1-mini-mlx
+```
+
+DFlash2 on (default):
+
+```bash
+python raon_mlx_model.py generate \
+    --prompt "Tell me about KRAFTON AI." \
+    --max-tokens 32768 \
+    --temp 1.0 --top-p 0.95 --top-k 20 --presence-penalty 1.5
+```
+
+DFlash2 off (plain MLX-LM generation): add `--no-dflash`.
+
+```bash
+python raon_mlx_model.py generate --no-dflash \
+    --prompt "Tell me about KRAFTON AI." \
+    --max-tokens 32768 \
+    --temp 1.0 --top-p 0.95 --top-k 20 --presence-penalty 1.5
+```
+
+Or start an OpenAI-compatible server (`/v1/chat/completions`, streaming, `/v1/models`), with DFlash2 on or off:
+
+```bash
+python raon_mlx_model.py serve --host 127.0.0.1 --port 8000              # DFlash2 on
+python raon_mlx_model.py serve --host 127.0.0.1 --port 8000 --no-dflash  # DFlash2 off
+```
+
+The server reads `temperature`, `top_p`, `top_k`, `presence_penalty`, `seed`, `max_tokens`, `stop`, `stream` and
+`chat_template_kwargs` from each request, and its defaults are temperature 1.0, top-p 0.95, top-k 20 and
+presence penalty 0. Thinking is on unless a request sets `"enable_thinking": false`. The reasoning is returned in
+`reasoning_content` and the answer in `content`. Tool calling is not supported by this server; use `mlx_lm server`
+above for it.
+
+Options for both commands:
+
+- `--no-dflash`: turn DFlash2 off (plain MLX-LM generation).
+- `--draft-tokens`: draft length. The default is 5, raised to 7 automatically while acceptance is high.
+- `--draft`: another draft folder or repo id.
+- `--max-tokens`, `--temp`, `--top-p`, `--top-k`, `--presence-penalty`, `--seed`.
+
+`generate` also takes `--system` and `--no-thinking`; `serve` takes `--host`, `--port`, `--model-id` and
+`--no-thinking`, which changes the default for requests that do not set it.
+
+To set the reasoning effort (`none`, `low`, `medium`, `high`, `xhigh` or `max`; default `high`), add `--reasoning-effort`:
+
+```bash
+python raon_mlx_model.py generate --prompt "Tell me about KRAFTON AI." --reasoning-effort low
+```
+
+The `raon_mlx_model.py serve` server accepts `"reasoning_effort"` in each chat request; `mlx_lm server` and `mlx_lm.generate` ignore it.
+
+DFlash2 needs `mlx==0.32.4` and `mlx-lm` 0.32.x as installed above. With other versions it prints a warning and
+generates without the draft. While it is on, the module wraps `mx.quantized_matmul` and a few of its own layer
+methods in the running process; outside the draft check they call the original code.
+
+The presence penalty counts all generated tokens, as in vLLM. MLX-LM's penalty, used with `--no-dflash`, counts
+the last 20 tokens including the prompt.
+
+The draft adds about 1 GB of memory.
+
+**Quick option guide.** These options apply to the bundled `raon_mlx_model.py` commands above:
+
+- **DFlash2:** on by default; add `--no-dflash` to turn it off. Speed depends on how many draft tokens the model accepts.
+- **Two-stage output head:** off by default; prefix the command with `RAON_HEAD_MODE=on` to enable it (`off` disables it). It automatically uses greedy selection for `--temp 0` (or less) and sampling for a positive temperature; the server uses each request's `temperature`. This is approximate and can change the output. DFlash2 draft verification always uses the full output head.
+- **Work overlap:** on by default; prefix the command with `RAON_DFLASH2_OVERLAP=0` to disable overlapping CPU preparation with GPU work. This changes scheduling, not the sampling mode; the speed effect depends on the workload.
+
+For example, enable the two-stage head with DFlash2 and greedy decoding:
+
+```bash
+RAON_HEAD_MODE=on python raon_mlx_model.py generate \
+    --prompt "Tell me about KRAFTON AI." --max-tokens 1024 --temp 0
+```
+
+Add `--no-dflash` to use the same head option without DFlash2. The included
+`head_stage1_a2g64gm.safetensors` adds about 208 MB; a missing or invalid file causes a warning and fallback
+to the full head. The MLX repository does not include `head_stage1_a2g64gm.safetensors` yet, so `RAON_HEAD_MODE=on` prints the warning and uses the full head. Direct native `mlx_lm.generate` calls use the full head.
+
 
 </details>
 
@@ -553,7 +676,7 @@ For coding and math, set `presence_penalty` to `0`.
 
 Raon-1 mini can be used with agent harnesses such as [Hermes Agent](https://github.com/NousResearch/hermes-agent), [Pi](https://pi.dev), and [OpenCode](https://opencode.ai) through an OpenAI-compatible API. The examples below assume an endpoint at `http://localhost:8000/v1` with the model ID `Raon-1-mini`. Adjust these settings to match your server, ensuring that tool calling and reasoning are properly supported.
 > [!NOTE]
-> With MLX, use `KRAFTON/Raon-1-mini-preview-mlx` as the model ID instead of `Raon-1-mini`; `mlx_lm server` loads the model named in each request.
+> With MLX, use `Raon-1-mini-mlx` (the folder passed to `--model`) as the model ID instead of `Raon-1-mini`; `mlx_lm server` loads the model named in each request.
 
 ### Hermes Agent
 

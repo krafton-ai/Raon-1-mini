@@ -282,7 +282,7 @@ Tested on NVIDIA B300. The RTX 5090 NVFP4 profile is documented below.
 Install from our fork and start the server:
 
 ```bash
-VLLM_REF="raon-1-mini-preview"
+VLLM_REF="raon"
 
 uv venv --python 3.12
 source .venv/bin/activate

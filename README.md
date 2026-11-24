@@ -20,16 +20,16 @@ Raon-1 mini is a 30B-A4B Mixture-of-Experts (MoE) language model, designed and *
 
 ## Highlights
 
-<p align="center">
-  <img src="https://huggingface.co/KRAFTON/Raon-1-mini/resolve/main/assets/raon-1-mini-highlights.webp" alt="Raon-1 mini benchmark highlights: AA-Omniscience, GPQA Diamond, IFBench, MultiChallenge, BrowseComp Plus, SWE-Verified, GDPVal and Chatbot Korean (internal), compared with Qwen3.6 35B-A3B, Gemma 4 26B-A4B, Flint (40B-A2.5B) and Inkling 2 Mini" width="100%">
-</p>
-
 - **Reasoning**: Built-in thinking with six [reasoning effort](#reasoning-effort) levels (`none`, `low`, `medium`, `high`, `xhigh` and `max`), selectable per request. Scores 96.7 on AIME 2026, 87.1 on HMMT Feb 2026 and 86.0 on GPQA Diamond.
 - **Multi-turn conversation and search**: Leads the compared MoE models on MultiChallenge (64.9) and BrowseComp Plus (55.9), the multi-turn conversation and search benchmarks shown below.
 - **Multilingual capabilities**: Trained on Korean, English, Japanese, Chinese, Spanish, French, and Thai. Demonstrates strong Korean performance and solid English capabilities.
 - **Agent execution**: Tool calling for agentic workflows, with support for Hermes Agent, Pi and OpenCode.
 - **Speculative decoding support**: A DFlash2 draft model is provided for accelerated speculative decoding.
 - **Quantization options**: Available in MXFP8 and NVFP4 formats, with NVFP4 enabling inference on a single NVIDIA RTX 5090 gpu (32 GB VRAM).
+
+<p align="center">
+  <img src="https://huggingface.co/KRAFTON/Raon-1-mini/resolve/main/assets/raon-1-mini-highlights.webp" alt="Raon-1 mini benchmark highlights: AA-Omniscience, GPQA Diamond, IFBench, MultiChallenge, BrowseComp Plus, SWE-Verified, GDPVal and Chatbot Korean (internal), compared with Qwen3.6 35B-A3B, Gemma 4 26B-A4B, Flint (40B-A2.5B) and Inkling 2 Mini" width="100%">
+</p>
 
 ## Model Overview
 

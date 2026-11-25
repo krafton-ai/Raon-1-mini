@@ -76,16 +76,6 @@ Raon-1 mini uses a hybrid Mixture-of-Experts (MoE) architecture, consisting of 1
 
 Red indicates where Raon-1 mini achieves the best performance among MoE baselines.
 
-<p align="center">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="assets/raon-1-mini-benchmarks-dark.png">
-    <img src="assets/raon-1-mini-benchmarks.png" alt="Raon-1 mini benchmark results compared with MoE and dense models" width="100%">
-  </picture>
-</p>
-
-<details>
-<summary>Table as text</summary>
-
 <div style="font-family:'Pretendard','Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',system-ui,sans-serif;max-width:1400px;margin:0 auto;padding:0;">
 <div style="overflow-x:auto;">
 <table style="font-family:'Pretendard','Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',system-ui,sans-serif;border-collapse:collapse;width:100%;font-size:14px;">
@@ -133,19 +123,7 @@ Red = Raon-1 mini is best within the MoE group (Raon-1 mini, Raon-1 mini preview
 <br/>
 ⁵ Chatbot Korean (internal): an internal benchmark measuring Korean colloquial ability in chatbot conversations across diverse situations. Not publicly released.</p>
 
-</details>
-
 ## 2027 Korean CSAT Results
-
-<p align="center">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="assets/raon-1-mini-csat-2027-dark.png">
-    <img src="assets/raon-1-mini-csat-2027.png" alt="2027 Korean CSAT results of Raon-1 mini and other models" width="100%">
-  </picture>
-</p>
-
-<details>
-<summary>Table as text</summary>
 
 <table style="font-family:'Pretendard','Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',system-ui,sans-serif;border-collapse:collapse;width:100%;table-layout:auto;font-size:14px;max-width:1400px;margin:0 auto">
   <colgroup>
@@ -292,8 +270,6 @@ Raon-1 mini was evaluated with high reasoning effort.<br/>
 <strong>Scoring.</strong> This benchmark scores the full exam out of 450 points. Korean, math, and English are worth 100 points each, Korean history 50, and social studies and science a combined 100. For Korean and math, we add the average elective score to the common-section score. For social studies and science, we double the average across 17 electives.<br/>
 We followed <a href="https://github.com/hehee9/CSAT-benchmark">hehee9’s CSAT-benchmark</a> implementation as closely as possible.
 </p>
-
-</details>
 
 ## Sampling parameters
 

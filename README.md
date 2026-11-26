@@ -271,6 +271,82 @@ Raon-1 mini was evaluated with high reasoning effort.<br/>
 We followed <a href="https://github.com/hehee9/CSAT-benchmark">hehee9’s CSAT-benchmark</a> implementation as closely as possible.
 </p>
 
+## Memory Requirements
+
+Raon-1 mini fits a full 256K-token request in 24 GB of VRAM with NVFP4 weights and a BF16 KV cache.
+
+<table style="font-family:'Pretendard','Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',system-ui,sans-serif;border-collapse:collapse;width:100%;font-size:14px;max-width:1400px;margin:0 auto">
+  <thead>
+  <tr>
+    <th scope="col" style="font-family:'Pretendard','Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',system-ui,sans-serif;background:#000;color:#fff;text-align:left;padding:12px 14px;font-weight:700;vertical-align:middle">Group</th>
+    <th scope="col" style="font-family:'Pretendard','Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',system-ui,sans-serif;background:#000;color:#fff;text-align:left;padding:12px 14px;font-weight:700;vertical-align:middle">Model</th>
+    <th scope="col" style="font-family:'Pretendard','Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',system-ui,sans-serif;background:#000;color:#fff;padding:12px 10px;font-weight:700;text-align:center;vertical-align:middle">NVFP4 weight</th>
+    <th scope="col" style="font-family:'Pretendard','Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',system-ui,sans-serif;background:#000;color:#fff;padding:12px 10px;font-weight:700;text-align:center;vertical-align:middle">Memory left for KV cache</th>
+    <th scope="col" style="font-family:'Pretendard','Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',system-ui,sans-serif;background:#000;color:#fff;padding:12px 10px;font-weight:700;text-align:center;vertical-align:middle">Max context (BF16 KV)</th>
+    <th scope="col" style="font-family:'Pretendard','Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',system-ui,sans-serif;background:#000;color:#fff;padding:12px 10px;font-weight:700;text-align:center;vertical-align:middle">Spare VRAM at max context</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td rowspan="1" style="font-weight:700;text-align:left;vertical-align:middle;white-space:normal;border-bottom:1px solid #e6e6e6;background:#e0362f;color:#fff">Raon</td>
+    <td style="padding:12px 10px;border-bottom:1px solid #e6e6e6;color:#1a1a1a;text-align:left;font-size:15px;background:#fef0ef;font-weight:700">Raon-1 mini<br/><span style="font-size:12px;color:#6b6b6b;font-weight:400">30B-A4B</span></td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;color:#1a1a1a;text-align:center;font-size:15px;background:#fef0ef;font-weight:700">16.3 GiB</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;color:#1a1a1a;text-align:center;font-size:15px;background:#fef0ef;font-weight:700">6.2 GiB</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;color:#1a1a1a;text-align:center;font-size:15px;background:#fef0ef;font-weight:700">256K<br/><span style="font-size:12px;color:#6b6b6b;font-weight:400">full context</span></td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;color:#1a1a1a;text-align:center;font-size:15px;background:#fef0ef;font-weight:700">4.1 GiB<br/><span style="font-size:12px;color:#6b6b6b;font-weight:400">room for ~2 more 256K requests</span></td>
+  </tr>
+  <tr>
+    <td rowspan="3" style="font-weight:700;text-align:left;vertical-align:middle;white-space:normal;border-bottom:1px solid #e6e6e6;background:#fff;color:#1a1a1a">MoE</td>
+    <td style="padding:12px 10px;border-bottom:1px solid #e6e6e6;color:#1a1a1a;text-align:left;font-size:15px;background:#f7f7f7;font-weight:500">Gemma 4<br/><span style="font-size:12px;color:#6b6b6b;font-weight:400">26B-A4B</span></td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;color:#1a1a1a;text-align:center;font-size:15px;background:#f7f7f7">17.5 GiB</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;color:#1a1a1a;text-align:center;font-size:15px;background:#f7f7f7">5.0 GiB</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;color:#1a1a1a;text-align:center;font-size:15px;background:#f7f7f7">256K<br/><span style="font-size:12px;color:#6b6b6b;font-weight:400">full context</span></td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;color:#1a1a1a;text-align:center;font-size:15px;background:#f7f7f7">2.3 GiB<br/><span style="font-size:12px;color:#6b6b6b;font-weight:400">&lt; 1 more 256K request</span></td>
+  </tr>
+  <tr>
+    <td style="padding:12px 10px;border-bottom:1px solid #e6e6e6;color:#1a1a1a;text-align:left;font-size:15px;background:#fff;font-weight:500">Inkling 2 Mini<br/><span style="font-size:12px;color:#6b6b6b;font-weight:400">26.4B-A5.4B</span></td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;color:#1a1a1a;text-align:center;font-size:15px;background:#fff">18.2 GiB</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;color:#1a1a1a;text-align:center;font-size:15px;background:#fff">4.3 GiB</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;color:#1a1a1a;text-align:center;font-size:15px;background:#fff">133K<br/><span style="font-size:12px;color:#6b6b6b;font-weight:400">memory-limited</span></td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;color:#1a1a1a;text-align:center;font-size:15px;background:#fff">0</td>
+  </tr>
+  <tr>
+    <td style="padding:12px 10px;border-bottom:1px solid #e6e6e6;color:#1a1a1a;text-align:left;font-size:15px;background:#f7f7f7;font-weight:500">Flint<br/><span style="font-size:12px;color:#6b6b6b;font-weight:400">40B-A2.5B</span></td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;color:#1a1a1a;text-align:center;font-size:15px;background:#f7f7f7">21.3 GiB</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;color:#1a1a1a;text-align:center;font-size:15px;background:#f7f7f7">1.2 GiB</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;color:#1a1a1a;text-align:center;font-size:15px;background:#f7f7f7">43K<br/><span style="font-size:12px;color:#6b6b6b;font-weight:400">memory-limited</span></td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;color:#1a1a1a;text-align:center;font-size:15px;background:#f7f7f7">0</td>
+  </tr>
+  <tr>
+    <td rowspan="3" style="font-weight:700;text-align:left;vertical-align:middle;white-space:normal;border-bottom:1px solid #e6e6e6;background:#fff;color:#1a1a1a">Dense</td>
+    <td style="padding:12px 10px;border-bottom:1px solid #e6e6e6;color:#1a1a1a;text-align:left;font-size:15px;background:#fff;font-weight:500">Qwen3.8<br/><span style="font-size:12px;color:#6b6b6b;font-weight:400">27B</span></td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;color:#1a1a1a;text-align:center;font-size:15px;background:#fff">21.0 GiB</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;color:#1a1a1a;text-align:center;font-size:15px;background:#fff">1.5 GiB</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;color:#1a1a1a;text-align:center;font-size:15px;background:#fff">21K<br/><span style="font-size:12px;color:#6b6b6b;font-weight:400">memory-limited</span></td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;color:#1a1a1a;text-align:center;font-size:15px;background:#fff">0</td>
+  </tr>
+  <tr>
+    <td style="padding:12px 10px;border-bottom:1px solid #e6e6e6;color:#1a1a1a;text-align:left;font-size:15px;background:#f7f7f7;font-weight:500">Muse Glimmer<br/><span style="font-size:12px;color:#6b6b6b;font-weight:400">30B</span></td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;color:#1a1a1a;text-align:center;font-size:15px;background:#f7f7f7">23.0 GiB</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;color:#9a9a9a;text-align:center;font-size:15px;background:#f7f7f7">Doesn't fit</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;color:#9a9a9a;text-align:center;font-size:15px;background:#f7f7f7">Doesn't fit</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;color:#9a9a9a;text-align:center;font-size:15px;background:#f7f7f7">—</td>
+  </tr>
+  <tr>
+    <td style="padding:12px 10px;border-bottom:1px solid #e6e6e6;color:#1a1a1a;text-align:left;font-size:15px;background:#fff;font-weight:500">Gemma 4<br/><span style="font-size:12px;color:#6b6b6b;font-weight:400">31B</span></td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;color:#1a1a1a;text-align:center;font-size:15px;background:#fff">30.4 GiB</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;color:#9a9a9a;text-align:center;font-size:15px;background:#fff">Doesn't fit</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;color:#9a9a9a;text-align:center;font-size:15px;background:#fff">Doesn't fit</td>
+    <td style="padding:12px 6px;border-bottom:1px solid #e6e6e6;color:#9a9a9a;text-align:center;font-size:15px;background:#fff">—</td>
+  </tr>
+  </tbody>
+</table>
+<p style="margin:0;font-size:10px;opacity:0.7">
+One request on a single 24 GB GPU. 1.5 GiB reserved for the runtime; context capped at each model's maximum (256K for Raon-1 mini and Gemma 4 26B-A4B).<br/>
+NVFP4 weight = total size of .safetensors/.gguf files in the listed Hugging Face repo (as of 2026-11-25), excluding separate MTP/mmproj files; vision weights inside the checkpoint are included. Repos: KRAFTON (Raon-1 mini), Thinking Machines (Inkling 2 Mini), RecursiveSI (Flint), NVIDIA (Gemma 4, Muse Glimmer), unsloth (Qwen3.8).<br/>
+KV cache computed from each model's config in BF16, fixed-size recurrent / sliding-window state included (256K request: Raon-1 mini 2.0 GiB, Gemma 4 26B-A4B 2.7 GiB).<br/>
+Spare VRAM = memory still free with one request at the model's maximum context; 0 when memory, not the model, limits the context.</p>
+
 ## Sampling parameters
 
 > [!Important]

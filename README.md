@@ -281,9 +281,9 @@ Raon-1 mini fits a full 256K-token request in 24 GB of VRAM with NVFP4 weights a
     <th scope="col" style="font-family:'Pretendard','Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',system-ui,sans-serif;background:#000;color:#fff;text-align:left;padding:12px 14px;font-weight:700;vertical-align:middle">Group</th>
     <th scope="col" style="font-family:'Pretendard','Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',system-ui,sans-serif;background:#000;color:#fff;text-align:left;padding:12px 14px;font-weight:700;vertical-align:middle">Model</th>
     <th scope="col" style="font-family:'Pretendard','Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',system-ui,sans-serif;background:#000;color:#fff;padding:12px 10px;font-weight:700;text-align:center;vertical-align:middle">NVFP4 weight</th>
-    <th scope="col" style="font-family:'Pretendard','Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',system-ui,sans-serif;background:#000;color:#fff;padding:12px 10px;font-weight:700;text-align:center;vertical-align:middle">Memory left for KV cache</th>
+    <th scope="col" style="font-family:'Pretendard','Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',system-ui,sans-serif;background:#000;color:#fff;padding:12px 10px;font-weight:700;text-align:center;vertical-align:middle">Memory left<br>for KV cache</th>
     <th scope="col" style="font-family:'Pretendard','Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',system-ui,sans-serif;background:#000;color:#fff;padding:12px 10px;font-weight:700;text-align:center;vertical-align:middle">Max context (BF16 KV)</th>
-    <th scope="col" style="font-family:'Pretendard','Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',system-ui,sans-serif;background:#000;color:#fff;padding:12px 10px;font-weight:700;text-align:center;vertical-align:middle">Spare VRAM at max context</th>
+    <th scope="col" style="font-family:'Pretendard','Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',system-ui,sans-serif;background:#000;color:#fff;padding:12px 10px;font-weight:700;text-align:center;vertical-align:middle">Spare VRAM<br>at max context</th>
   </tr>
   </thead>
   <tbody>
